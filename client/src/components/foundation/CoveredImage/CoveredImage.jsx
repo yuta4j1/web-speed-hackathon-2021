@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import sizeOf from 'image-size';
+// import sizeOf from 'image-size';
 import React from 'react';
 
 import { useFetch } from '../../../hooks/use_fetch';
@@ -19,7 +19,7 @@ const CoveredImage = ({ alt, src }) => {
   const { data, isLoading } = useFetch(src, fetchBinary);
 
   const imageSize = React.useMemo(() => {
-    return data !== null ? sizeOf(Buffer.from(data)) : null;
+    return data !== null ? data.byteLength : null;
   }, [data]);
 
   const blobUrl = React.useMemo(() => {

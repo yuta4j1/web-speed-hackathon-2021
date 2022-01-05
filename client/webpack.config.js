@@ -25,13 +25,14 @@ const config = {
     main: [
       'core-js',
       'regenerator-runtime/runtime',
-      'jquery-binarytransport',
+      // 'jquery-binarytransport',
       path.resolve(SRC_PATH, './index.css'),
       path.resolve(SRC_PATH, './buildinfo.js'),
       path.resolve(SRC_PATH, './index.jsx'),
     ],
   },
   mode: 'none',
+  // mode: 'production',
   module: {
     rules: [
       {
@@ -54,12 +55,12 @@ const config = {
     path: DIST_PATH,
   },
   plugins: [
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      AudioContext: ['standardized-audio-context', 'AudioContext'],
-      Buffer: ['buffer', 'Buffer'],
-      'window.jQuery': 'jquery',
-    }),
+    // new webpack.ProvidePlugin({
+    //   $: 'jquery',
+    //   AudioContext: ['standardized-audio-context', 'AudioContext'],
+    //   Buffer: ['buffer', 'Buffer'],
+    //   'window.jQuery': 'jquery',
+    // }),
     // load `moment/locale/ja.js` and `moment/locale/it.js`
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /ja|it/),
     new webpack.EnvironmentPlugin({
