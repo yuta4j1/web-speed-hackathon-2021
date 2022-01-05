@@ -1,4 +1,8 @@
-import { _map, _max, _chunk } from '../../../utils/lodash';
+import map from 'lodash/map'
+import chunk from 'lodash/chunk'
+import mean from 'lodash/mean'
+import zip from 'lodash/zip'
+import max from 'lodash/max'
 import React from 'react';
 
 /**
@@ -14,20 +18,20 @@ async function calculate(data) {
     audioCtx.decodeAudioData(data.slice(0), resolve, reject);
   });
   // 左の音声データの絶対値を取る
-  const leftData = _map(buffer.getChannelData(0), Math.abs);
+  const leftData = map(buffer.getChannelData(0), Math.abs);
   // 右の音声データの絶対値を取る
-  const rightData = _map(buffer.getChannelData(1), Math.abs);
+  const rightData = map(buffer.getChannelData(1), Math.abs);
 
   // 左右の音声データの平均を取る
-  const normalized = _map(_.zip(leftData, rightData), _.mean);
+  const normalized = map(zip(leftData, rightData), mean);
   // 100 個の chunk に分ける
-  const chunks = _chunk(normalized, Math.ceil(normalized.length / 100));
+  const chunks = chunk(normalized, Math.ceil(normalized.length / 100));
   // chunk ごとに平均を取る
-  const peaks = _map(chunks, _.mean);
+  const peaks = map(chunks, mean);
   // chunk の平均の中から最大値を取る
-  const max = _max(peaks);
+  const maxVal = max(peaks);
 
-  return { max, peaks };
+  return { max: maxVal, peaks };
 }
 
 /**
