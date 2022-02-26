@@ -31,11 +31,19 @@ export function useFetch(apiPath, fetcher) {
     const promise = fetcher(apiPath);
 
     promise.then((data) => {
-      setResult((cur) => ({
-        ...cur,
-        data,
-        isLoading: false,
-      }));
+      if (data && data.message) {
+        setResult((cur) => ({
+          ...cur,
+          error: data,
+          isLoading: false,
+        }));
+      } else {
+        setResult((cur) => ({
+          ...cur,
+          data,
+          isLoading: false,
+        }));
+      }
     });
 
     promise.catch((error) => {
